@@ -87,20 +87,16 @@ public class CustomerServiceImpl implements CustomerService {
 
         WebClient webClient = WebClient.builder().build();
 
-       try{
-           Customer finalCustomer = customer;
-           String url= "http://localhost:9000/loan/request";
-           url = url+"?mobileNumber="+finalCustomer.getMobileNumber();
-           Mono<LoanDto> loanDtoMono = webClient.post().
-                   uri(url)
-                   .contentType(MediaType.APPLICATION_JSON)
-                   .accept(MediaType.APPLICATION_JSON)
-                   .retrieve().bodyToMono(LoanDto.class).log();
+        try {
+            Customer finalCustomer = customer;
+            String url = "http://localhost:9000/loan/request";
+            url = url + "?mobileNumber=" + finalCustomer.getMobileNumber();
+            Mono<LoanDto> loanDtoMono = webClient.post().uri(url).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).retrieve().bodyToMono(LoanDto.class).log();
 
-           LoanDto loanDto = loanDtoMono.block();
-       }catch (Exception e){
-           throw new RuntimeException(e.getMessage());
-       }
+            LoanDto loanDto = loanDtoMono.block();
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
 
         return customerDetailsMapper.getCustomerDetailsDto(customer, accounts);
     }
