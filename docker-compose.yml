@@ -1,0 +1,20 @@
+services:
+  accounts:
+    image: "skarav09/accounts-service:v1"
+    container_name: accounts-ms
+    ports:
+      - "8080:8080"
+    networks:
+      - mybank
+
+  loans:
+    image: "skarav09/loans-service:v1"
+    container_name: loans-ms
+    ports:
+      - "9000:9000"
+    networks:
+      - mybank
+
+networks:
+  mybank:
+    driver: "bridge"

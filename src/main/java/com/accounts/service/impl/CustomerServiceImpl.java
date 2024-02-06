@@ -89,7 +89,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         try {
             Customer finalCustomer = customer;
-            String url = "http://localhost:9000/loan/request";
+            String url = "http://loans-ms:9000/loan/request";
             url = url + "?mobileNumber=" + finalCustomer.getMobileNumber();
             Mono<LoanDto> loanDtoMono = webClient.post().uri(url).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).retrieve().bodyToMono(LoanDto.class).log();
 
